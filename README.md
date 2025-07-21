@@ -45,10 +45,7 @@ python app.py
 
 ## 🏗️ Estructura del Proyecto
 
-````markdown
-## 🏗️ Estructura del Proyecto
-
-```bash
+```markdown
 chatbot_project/
 │
 ├── backend/
