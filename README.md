@@ -45,26 +45,29 @@ python app.py
 
 ## 🏗️ Estructura del Proyecto
 
+````markdown
+## 🏗️ Estructura del Proyecto
+
+```bash
 chatbot_project/
 │
 ├── backend/
-│   └── api.py          # API FastAPI para el chatbot
+│   ├── api.py          # API FastAPI para el chatbot
 │   └── chatbot.py      # Lógica principal del chatbot
 │
 ├── frontend/
 │   ├── static/
-│   │   └── style.css   # Estilos CSS
+│   │   ├── style.css   # Estilos CSS
 │   │   └── script.js   # Script JavaScript
 │   ├── templates/
 │   │   └── index.html  # Plantilla HTML
 │   └── app.py          # Aplicación Flask para el frontend
 │
 ├── notebook/
-│   └── chatbot.ipynb   # Notebook de Jupyter para el chatbot
+│   └── chatbot.ipynb   # Notebook de Jupyter
 │
-└── requirements.txt    # Dependencias del proyecto
-
-## 🏗️ Estructura del proyecto
+└── README.md           # Documentación
+```
 
 La estructura sigue el patrón de arquitectura "Backend-Frontend" o "API + Web Interface", con una separación clara de responsabilidades. Específicamente, se asemeja a una variante del patrón MVC (Modelo-Vista-Controlador):
 
