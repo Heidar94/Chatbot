@@ -159,3 +159,67 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* Estilos para el Markdown */
+.message p {
+    margin: 0.5em 0;
+    line-height: 1.5;
+}
+
+.message strong {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.message em {
+    font-style: italic;
+}
+
+.message code {
+    background-color: #f0f0f0;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.message pre {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 1em;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+}
+
+.message pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.message ul, .message ol {
+    padding-left: 1.5em;
+    margin: 0.5em 0;
+}
+
+.message li {
+    margin: 0.3em 0;
+}
+
+.message a {
+    color: #4a6fa5;
+    text-decoration: none;
+}
+
+.message a:hover {
+    text-decoration: underline;
+}
+
+.message blockquote {
+    border-left: 3px solid #4a6fa5;
+    margin: 0.5em 0;
+    padding-left: 1em;
+    color: #666;
+    font-style: italic;
+}

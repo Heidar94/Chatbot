@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMessage(content, isUser) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
-        messageDiv.textContent = content;
+        // Convertir Markdown a HTML
+        const formattedContent = marked.parse(content);
+        messageDiv.innerHTML = formattedContent;
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -91,10 +93,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 i++;
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 setTimeout(type, speed);
+            } else {
+                // Cuando termine de escribir, aplicar el formato Markdown
+                applyMarkdownFormatting(messageDiv);
             }
         }
         
         type();
+    }
+
+    // Función para aplicar formato Markdown después de mostrar el texto
+    function applyMarkdownFormatting(element) {
+        // Pequeño retraso para que se vea el efecto
+        setTimeout(() => {
+            const markdownText = element.textContent;
+            element.innerHTML = marked.parse(markdownText);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 300); // 300ms de retraso
     }
 
     // Event Listeners
