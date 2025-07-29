@@ -102,14 +102,76 @@ document.addEventListener('DOMContentLoaded', function() {
         type();
     }
 
+    // Configurar marked para resaltado de sintaxis
+    marked.setOptions({
+        highlight: function(code, lang) {
+            const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+            return hljs.highlight(code, { language }).value;
+        },
+        langPrefix: 'hljs language-',
+    });
+
     // Función para aplicar formato Markdown después de mostrar el texto
     function applyMarkdownFormatting(element) {
-        // Pequeño retraso para que se vea el efecto
         setTimeout(() => {
             const markdownText = element.textContent;
             element.innerHTML = marked.parse(markdownText);
+            
+            // Añadir botones de copia a los bloques de código
+            document.querySelectorAll('pre code').forEach((block) => {
+                // Crear contenedor para el bloque de código
+                const container = document.createElement('div');
+                container.className = 'code-block-container';
+                
+                // Crear barra de herramientas
+                const toolbar = document.createElement('div');
+                toolbar.className = 'code-toolbar';
+                
+                // Añadir botón de copiar
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.title = 'Copiar al portapapeles';
+                copyButton.innerHTML = '<i class="far fa-copy"></i>';
+                
+                // Obtener el lenguaje del bloque de código
+                const language = Array.from(block.classList)
+                    .find(cls => cls.startsWith('language-'))
+                    ?.replace('language-', '') || 'text';
+                
+                // Añadir etiqueta de lenguaje
+                const langLabel = document.createElement('span');
+                langLabel.className = 'language-label';
+                langLabel.textContent = language;
+                
+                // Construir la estructura
+                toolbar.appendChild(langLabel);
+                toolbar.appendChild(copyButton);
+                
+                // Envolver el bloque de código original
+                const wrapper = block.parentNode;
+                wrapper.parentNode.insertBefore(container, wrapper);
+                container.appendChild(toolbar);
+                container.appendChild(wrapper);
+                
+                // Añadir funcionalidad de copiado
+                copyButton.addEventListener('click', () => {
+                    navigator.clipboard.writeText(block.textContent).then(() => {
+                        // Cambiar temporalmente el ícono para indicar que se copió
+                        const icon = copyButton.querySelector('i');
+                        const originalIcon = icon.className;
+                        icon.className = 'fas fa-check';
+                        copyButton.title = '¡Copiado!';
+                        
+                        setTimeout(() => {
+                            icon.className = originalIcon;
+                            copyButton.title = 'Copiar al portapapeles';
+                        }, 2000);
+                    });
+                });
+            });
+            
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 300); // 300ms de retraso
+        }, 300);
     }
 
     // Event Listeners

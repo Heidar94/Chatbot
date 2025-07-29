@@ -3,7 +3,7 @@ import requests
 class Chatbot:
     def __init__(self, api_url: str = "http://127.0.0.1:1234/v1/chat/completions"):
         self.api_url = api_url
-        self.conversation = [{"role": "system", "content": "Eres un asistente útil y amigable."}]
+        self.conversation = [{"role": "system", "content": "Te llamas Chiti. Eres un asistente útil y amigable capaz de solucionar cualquier problema que se le presente."}]
 
     def get_response(self, user_input: str) -> str:
         """Envía el mensaje al modelo y devuelve la respuesta"""
@@ -38,4 +38,4 @@ class Chatbot:
 
     def reset_conversation(self):
         """Reinicia la conversación"""
-        self.conversation = [{"role": "system", "content": "Eres un asistente útil y amigable."}]
+        self.conversation = [{"role": "system", "content": "Te llamas Chiti. Eres un asistente útil y amigable capaz de solucionar cualquier problema que se le presente."}]

@@ -76,7 +76,7 @@ La estructura sigue el patrón de arquitectura "Backend-Frontend" o "API + Web I
 Esta estructura también sigue las mejores prácticas de Arquitectura de Microservicios, donde el frontend y el backend están completamente desacoplados y se comunican a través de una API REST.
 
 Nombres específicos para esta estructura:
-- "API-First Architecture": Donde primero defines la API y luego construyes el frontend que la consume.
+- "API-First Architecture": Donde primero se define la API y luego se construye el frontend que la consume.
 - "Three-Tier Architecture" (Arquitectura de Tres Capas):
     Capa de Presentación: Frontend (HTML/CSS/JS)
     Capa de Lógica de Negocio: Backend (Python/FastAPI)

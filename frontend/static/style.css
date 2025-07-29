@@ -37,11 +37,15 @@ body {
     padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
 
 #resetBtn:hover {
     background: #ff5252;
+}
+
+#resetBtn:active {
+    transform: translateY(1px);
 }
 
 .chat-messages {
@@ -119,11 +123,12 @@ body {
     border-radius: 20px;
     outline: none;
     font-size: 16px;
-    transition: border 0.3s;
+    transition: border 0.3s ease;
 }
 
 #userInput:focus {
     border-color: #4a6fa5;
+    box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
 }
 
 #sendBtn {
@@ -134,11 +139,15 @@ body {
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
 
 #sendBtn:hover {
     background: #3a5a80;
+}
+
+#sendBtn:active {
+    transform: translateY(1px);
 }
 
 /* Estilos para el scrollbar */
@@ -154,6 +163,7 @@ body {
 ::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
+    transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -163,7 +173,7 @@ body {
 /* Estilos para el Markdown */
 .message p {
     margin: 0.5em 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .message strong {
@@ -176,50 +186,144 @@ body {
 }
 
 .message code {
-    background-color: #f0f0f0;
+    background-color: #282c34;
     padding: 0.2em 0.4em;
     border-radius: 3px;
-    font-family: 'Courier New', monospace;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    color: #abb2bf;
+}
+
+/* Estilos para bloques de código */
+pre {
+    position: relative;
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 6px;
+    background-color: #282c34;
+    color: #abb2bf;
+    overflow-x: auto;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.code-block-container {
+    position: relative;
+    margin: 1.5em 0;
+    border-radius: 6px;
+    background-color: #282c34;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.code-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color: #1e2227;
+    color: #9da5b4;
+    font-size: 0.85em;
+}
+
+.language-label {
+    text-transform: uppercase;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.copy-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #9da5b4;
+    cursor: pointer;
+    padding: 0.3em 0.8em;
+    border-radius: 4px;
+    font-size: 0.8em;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.copy-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.copy-button:active {
+    transform: translateY(1px);
+}
+
+.copy-button i {
     font-size: 0.9em;
 }
 
-.message pre {
-    background-color: #282c34;
-    color: #abb2bf;
+/* Mejora el resaltado de sintaxis */
+.hljs {
+    background: transparent;
     padding: 1em;
-    border-radius: 5px;
-    overflow-x: auto;
-    margin: 0.5em 0;
+    margin: 0;
 }
 
-.message pre code {
-    background: none;
-    padding: 0;
-    border-radius: 0;
-}
-
+/* Estilos para listas */
 .message ul, .message ol {
     padding-left: 1.5em;
-    margin: 0.5em 0;
+    margin: 0.8em 0;
 }
 
 .message li {
-    margin: 0.3em 0;
+    margin: 0.4em 0;
+    padding-left: 0.3em;
 }
 
+/* Enlaces */
 .message a {
     color: #4a6fa5;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .message a:hover {
+    color: #3a5a80;
     text-decoration: underline;
 }
 
+/* Citas */
 .message blockquote {
     border-left: 3px solid #4a6fa5;
-    margin: 0.5em 0;
-    padding-left: 1em;
-    color: #666;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    background-color: rgba(74, 111, 165, 0.05);
+    color: #555;
     font-style: italic;
+}
+
+/* Mejoras de accesibilidad */
+:focus-visible {
+    outline: 2px solid #4a6fa5;
+    outline-offset: 2px;
+}
+
+/* Transiciones suaves */
+button, a, input, .message {
+    transition: all 0.2s ease;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 95%;
+        height: 90vh;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+    
+    pre {
+        font-size: 0.85em;
+    }
 }
