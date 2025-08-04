@@ -25,6 +25,9 @@
         <div class="chat-input">
             <input type="text" id="userInput" placeholder="Escribe tu mensaje..." autofocus>
             <button id="sendBtn">Enviar</button>
+            <button id="stopBtn" class="stop-button" title="Detener generación" style="display: none;">
+                <i class="fas fa-stop"></i>
+            </button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>

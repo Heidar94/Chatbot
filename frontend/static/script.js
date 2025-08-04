@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendBtn = document.getElementById('sendBtn');
     const resetBtn = document.getElementById('resetBtn');
 
+    let abortController = null;
+    let isGenerating = false;
+
     // Función para agregar un mensaje al chat
     function addMessage(content, isUser) {
         const messageDiv = document.createElement('div');
@@ -50,6 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mostrar indicador de escritura
         showTypingIndicator();
 
+        abortController = new AbortController();
+        isGenerating = true;
+        updateUIForGenerating(true);
+
         try {
             // Enviar mensaje al servidor
             const response = await fetch('http://localhost:8000/chat', {
@@ -57,7 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ content: message })
+                body: JSON.stringify({ content: message }),
+                signal: abortController.signal
             });
 
             const data = await response.json();
@@ -72,10 +80,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 addMessage('Lo siento, hubo un error al procesar tu mensaje.', false);
             }
         } catch (error) {
+            if (error.name === 'AbortError') {
+                console.error('Generación abortada');
+                addMessage('Generación abortada por el usuario', false);
+            } else {
+                
+                addMessage('Error de conexión con el servidor', false);
+                console.error('Error:', error);
+            }
+        } finally {
             removeTypingIndicator();
-            addMessage('Error de conexión con el servidor', false);
-            console.error('Error:', error);
+            isGenerating = false;
+            updateUIForGenerating(false);
+            abortController = null;
         }
+    }
+
+    // Función para detener la generación
+    function stopGeneration() {
+        if (abortController) {
+            abortController.abort();
+        }
+    }
+
+    // Función para actualizar la UI según el estado de generación
+    function updateUIForGenerating(isGenerating) {
+        const stopBtn = document.getElementById('stopBtn');
+        const sendBtn = document.getElementById('sendBtn');
+        
+        stopBtn.style.display = isGenerating ? 'flex' : 'none';
+        sendBtn.disabled = isGenerating;
     }
 
     // Función para efecto de escritura
@@ -176,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event Listeners
     sendBtn.addEventListener('click', sendMessage);
+    stopBtn.addEventListener('click', stopGeneration);
     
     userInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {

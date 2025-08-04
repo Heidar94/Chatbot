@@ -22,6 +22,16 @@ class Message(BaseModel):
 @app.post("/chat")
 async def chat(message: Message, request: Request):
     try:
+        # data = await request.json()
+        # user_message = data.get("message", "")
+        
+        # Verificar si la solicitud fue cancelada
+        if await request.is_disconnected():
+            return JSONResponse(
+                status_code=499,  # Código para "Client Closed Request"
+                content={"response": "Solicitud cancelada por el usuario"}
+            )
+
         print(f"Recibido mensaje: {message.content}")  # Debug
         response = chatbot.get_response(message.content)
         return {"response": response}
